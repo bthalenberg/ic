@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import copy, re
 
 class MySentences(object):
     def __init__(self, dirname):
@@ -18,12 +17,12 @@ def lemma_extraction(f):
     for line in f:
               
         if line != []:
-           if re.search("</s>", line[0]) is not None:
+           if "</s>" in line[0]:
               line.append("</s>")
-           if re.search("\$", line[0]) is not None:
-              line[1] = copy.copy(line[0])
+           if "\$" in line[0]:
+              line[1] = line[0]
               
-        if len(line) >= 2 and re.search("<ext", line[0]) is None:      
+        if len(line) >= 2 and "<ext" not in line[0]:      
            corpus.append(line[1])   
           
     
