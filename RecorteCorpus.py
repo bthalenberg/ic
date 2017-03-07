@@ -9,11 +9,10 @@ import logging, os
 def sentencas_uteis():
     import csv, itertools
     
-    with open("200-adjetivos.csv", "r", encoding="utf-8") as adjetivos:
+    with open("adj.csv", "r", encoding="utf-8") as adjetivos:
         reader = csv.reader(adjetivos)
         adj1 = list(reader)
         adj = set(list(itertools.chain.from_iterable(adj1)))
-        adj.remove("")
        
     lista_sentencas = []
 
@@ -46,10 +45,10 @@ def novos_vetores(diretorio, nome):
     
     sentences = MySentences(diretorio)
     
-    from gensim.models import Word2Vec
+    from gensim.models import Word2Vec, KeyedVectors
     
     model = Word2Vec(sentences, min_count = 15, size = 150, window = 4, sg = 1, negative=5)
-    model.save_word2vec_format(nome+".txt", binary=False)
+    model.wv.save_word2vec_format(nome+".txt", binary=False)
     
 def usando():
     modelo = Word2Vec.load('/home/bthalenberg/ic/vetores-seletos')
